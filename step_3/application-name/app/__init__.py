@@ -1,5 +1,5 @@
 from flask import Flask
-from app.config.config import Config
+from app.config.app_config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -31,6 +31,6 @@ logger.info('Application started')
 
 # import all routes and models
 from app.routes import *
-from app.models.user import *
+from app.models.search_data import *
 
 

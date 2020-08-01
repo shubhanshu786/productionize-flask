@@ -1,0 +1,5 @@
+apis:
+  get_data: /api/dashboard/get_data
+
+application:
+  spacy_model: en_core_web_lg
