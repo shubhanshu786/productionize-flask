@@ -25,8 +25,20 @@ flask application with database initialization and migration
 ##### Step_3
 flask application with proper MVC architecture/layer separation
 
-##### Note: Idea of this repo is to provide boilerplate to productionize flask. Existing code is not working. I will work on writing small app in sometime.
+### Application Details
+Step 3 is a simple application with 4 NLP apis.
 
+1. Process text to get NER, POS and tokenization results. (**POST** `/api/process_doc`, api params: `text` & `task (ner, pos, tokens)`)
+2. Get all results stored in database. (**GET** `/api/all_results`)
+3. Get result by result id. (**GET** `/api/result/<id>`)
+4. Delete any result by result id. (**DELETE** `/api/result/<id>`)
+
+Things to learn/check:
+1. How to use `yaml` for application configuration.
+2. How to load ML models once rather then loading it again and again. 
+3. Proper segregation of layers and logics.
+4. Simple application level logging using `TimedRotatingFileHandler`.
+5. Database (SQLite)
 
 
 

@@ -2,8 +2,6 @@ from app import app, logger
 from app.services import data_service
 from flask import jsonify
 from flask import request
-import json
-from app.utils.db_utils import AlchemyEncoder
 
 
 @app.route('/')
@@ -22,7 +20,6 @@ def get_all_data():
 def get_results(id):
     search_result = data_service.get_result_by_id(id)
     return jsonify(search_result)
-    #return json.dumps(search_result, cls=AlchemyEncoder)
 
 
 @app.route('/api/result/<int:id>', methods=['DELETE'])

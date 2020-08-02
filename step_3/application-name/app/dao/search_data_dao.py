@@ -1,7 +1,6 @@
 from app.models.search_data import OldData
 from app import db, logger
-import json
-from app.utils.db_utils import AlchemyEncoder
+
 
 def get_all_data():
     try:
