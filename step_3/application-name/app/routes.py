@@ -1,4 +1,4 @@
-from app import app
+from app import app, logger
 from app.services import data_service
 from flask import jsonify
 from flask import request
@@ -44,3 +44,39 @@ def process_doc():
         return jsonify(result), status.HTTP_500_INTERNAL_SERVER_ERROR
     else:
         return jsonify(result), status.HTTP_201_CREATED
+
+
+@app.errorhandler(404)
+def all_errors(e):
+    return jsonify(error="Requested API endpoint not found"), status.HTTP_400_BAD_REQUEST
+
+
+@app.after_request
+def log_request(response):
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    host = request.host.split(':', 1)[0]
+    args = dict(request.args)
+    log_params = [
+        ('method', request.method),
+        ('path', request.path),
+        ('status', response.status_code),
+        ('ip', ip),
+        ('host', host),
+        ('params', args)
+    ]
+    request_id = request.headers.get('X-Request-ID')
+    if request_id:
+        log_params.append(('request_id', request_id))
+
+    parts = []
+    for name, value in log_params:
+        part = "{}={}".format(name, value)
+        parts.append(part)
+    line = " ".join(parts)
+    if response.status_code == status.HTTP_200_OK or response.status_code == status.HTTP_201_CREATED or \
+            response.status_code == status.HTTP_204_NO_CONTENT:
+        logger.info(line)
+    else:
+        logger.error(line)
+    return response
+
