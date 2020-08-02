@@ -1,0 +1,10 @@
+alembic
+coloredlogs
+Flask
+Flask-API
+Flask-Cors
+Flask-Migrate
+Flask-SQLAlchemy
+gunicorn
+spacy
+pyyaml
