@@ -48,7 +48,7 @@ def process_doc():
 
 @app.errorhandler(404)
 def all_errors(e):
-    return jsonify(error="Requested API endpoint not found"), status.HTTP_400_BAD_REQUEST
+    return jsonify(error="Requested API endpoint not found"), status.HTTP_404_NOT_FOUND
 
 
 @app.after_request
@@ -56,6 +56,7 @@ def log_request(response):
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
     host = request.host.split(':', 1)[0]
     args = dict(request.args)
+    # Should add username, who accessed API
     log_params = [
         ('method', request.method),
         ('path', request.path),
